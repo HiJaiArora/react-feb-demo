@@ -25,7 +25,15 @@ function TopMovies() {
 
   const isLoaded = !!data;
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const passDetails = (movie) => {
+    scrollToTop();
     setMovieSelected(movie);
   };
   return (
@@ -36,11 +44,14 @@ function TopMovies() {
         {isLoaded ? (
           <Cards
             data={data}
+            scrollToTop={scrollToTop}
             passDetails={passDetails}
             setMovieSelected={setMovieSelected}
           />
         ) : (
-          <h1>loading...</h1>
+          <>
+            <h1>Fail to load data</h1>
+          </>
         )}
       </div>
     </>

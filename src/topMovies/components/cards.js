@@ -20,19 +20,20 @@ function Cards(props) {
     setCardData(props.data);
   }, [props.data]);
 
-  const handleFilter = (size) => {
-    if (size !== "All") {
+  const handleFilter = (genrechange) => {
+    if (genrechange !== "All") {
       const filteredData = props.data.filter((item) => {
-        return item.Genre.split(",").includes(size);
+        return item.Genre.split(",").includes(genrechange);
       });
+
       props.setMovieSelected({});
       setCardData(filteredData);
     } else {
       setCardData(props.data);
       props.setMovieSelected({});
     }
+    props.scrollToTop();
   };
-
   const calculateGenre = useMemo(() => {
     let genre = [];
     if (props.data) {
@@ -48,6 +49,7 @@ function Cards(props) {
   return (
     <>
       <FilterDropDown handleFilter={handleFilter} genre={calculateGenre} />
+
       <div className="Cards">
         {cardData &&
           cardData.map((item, index) => {

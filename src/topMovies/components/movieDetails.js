@@ -17,24 +17,30 @@ function MovieDetails(props) {
       <div className="movie-details">
         {movieSelected.Title ? (
           <>
-            <Image src={props.movieSelected.Poster} rounded />
+            <Image
+              src={props.movieSelected.Poster}
+              rounded
+              //   style={{ height: "100%" }}
+            />
             <ListGroup className="movie-detil-list" as="ol" numbered>
               <h2 className="title">{movieSelected.Title}</h2>
               {movieSelected &&
-                Object.entries(movieSelected).map(([key, value]) => {
-                  return (
-                    <ListGroup.Item
-                      as="li"
-                      key={key}
-                      className="d-flex justify-content-between align-items-start"
-                    >
-                      <div className="ms-2 me-auto">
-                        <div className="fw-bold">{key}</div>
-                        {value}
-                      </div>
-                    </ListGroup.Item>
-                  );
-                })}
+                Object.entries(movieSelected)
+                  .slice(1, 11)
+                  .map(([key, value]) => {
+                    return (
+                      <ListGroup.Item
+                        as="li"
+                        key={key}
+                        className="d-flex justify-content-between align-items-start"
+                      >
+                        <div className="ms-2 me-auto">
+                          <div className="fw-bold">{key}</div>
+                          {value}
+                        </div>
+                      </ListGroup.Item>
+                    );
+                  })}
             </ListGroup>
           </>
         ) : (
