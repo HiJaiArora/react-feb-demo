@@ -34,7 +34,11 @@ function TopMovies() {
       <div className="App">
         <h3>Select Any Movie</h3>
         {isLoaded ? (
-          <Cards data={data} passDetails={passDetails} />
+          <Cards
+            data={data}
+            passDetails={passDetails}
+            setMovieSelected={setMovieSelected}
+          />
         ) : (
           <h1>loading...</h1>
         )}

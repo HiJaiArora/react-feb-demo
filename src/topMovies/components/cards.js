@@ -25,9 +25,11 @@ function Cards(props) {
       const filteredData = props.data.filter((item) => {
         return item.Genre.split(",").includes(size);
       });
+      props.setMovieSelected({});
       setCardData(filteredData);
     } else {
       setCardData(props.data);
+      props.setMovieSelected({});
     }
   };
 
