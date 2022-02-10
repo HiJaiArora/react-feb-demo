@@ -7,20 +7,24 @@
   flex-wrap: wrap;
   margin: 5%;
 }
-.sale {
-  background-color: red;
-  margin: 5%;
-}
-
-.exc {
-  background-color: green;
-  margin: 5%;
-}
 
 .dropdown {
   display: flex;
   flex-direction: row-reverse;
-  /* margin-top: 0%; */
   margin: 3%;
   margin-top: 0%;
+}
+
+.movie-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 4%;
+}
+.movie-detil-list {
+  margin-left: 5%;
+}
+
+.title {
+  margin-bottom: 4%;
 }

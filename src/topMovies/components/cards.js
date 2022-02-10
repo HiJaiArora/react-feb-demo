@@ -34,7 +34,7 @@ function Cards(props) {
   const calculateGenre = useMemo(() => {
     let genre = [];
     if (props.data) {
-      props.data.map((movie) => {
+      props.data.forEach((movie) => {
         genre.push(movie.Genre.split(","));
       });
       genre = [...new Set(genre.flat(Infinity))];
@@ -50,7 +50,14 @@ function Cards(props) {
         {cardData &&
           cardData.map((item, index) => {
             return (
-              <Card key={item.index} style={{ width: "15rem", margin: "1rem" }}>
+              <Card
+                key={index}
+                style={{
+                  width: "15rem",
+                  margin: "1rem",
+                }}
+                onClick={() => props.passDetails(item)}
+              >
                 <Card.Img variant="top" src={item.Poster} />
                 <Card.Body key={index} style={{ height: "10.125rem" }}>
                   <Card.Title key={item.Title}>{item.Title}</Card.Title>

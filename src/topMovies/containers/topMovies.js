@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../actions/actions";
 import Cards from "../components/cards";
+import MovieDetails from "../components/movieDetails";
 
 /**
  * Women Top header component.
@@ -16,16 +17,29 @@ function TopMovies() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data);
 
+  const [movieSelected, setMovieSelected] = React.useState({});
+
   React.useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
 
   const isLoaded = !!data;
+
+  const passDetails = (movie) => {
+    setMovieSelected(movie);
+  };
   return (
-    <div className="App">
-      <h1>Top Movies</h1>
-      {isLoaded ? <Cards data={data} /> : <h1>loading...</h1>}
-    </div>
+    <>
+      <MovieDetails movieSelected={movieSelected} />
+      <div className="App">
+        <h3>Select Any Movie</h3>
+        {isLoaded ? (
+          <Cards data={data} passDetails={passDetails} />
+        ) : (
+          <h1>loading...</h1>
+        )}
+      </div>
+    </>
   );
 }
 
