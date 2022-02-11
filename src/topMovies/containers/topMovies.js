@@ -40,14 +40,16 @@ function TopMovies() {
     <>
       <MovieDetails movieSelected={movieSelected} />
       <div className="App">
-        <h3>Select Any Movie</h3>
         {isLoaded ? (
-          <Cards
-            data={data}
-            scrollToTop={scrollToTop}
-            passDetails={passDetails}
-            setMovieSelected={setMovieSelected}
-          />
+          <>
+            <h3>Select Any Movie</h3>
+            <Cards
+              data={data}
+              scrollToTop={scrollToTop}
+              passDetails={passDetails}
+              setMovieSelected={setMovieSelected}
+            />
+          </>
         ) : (
           <>
             <h1>Fail to load data</h1>

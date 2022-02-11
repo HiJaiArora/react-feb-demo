@@ -8,7 +8,7 @@ describe("App without data", () => {
   const store = mockStore({
     data: false,
   });
-
+  window.scrollTo = jest.fn();
   beforeEach(() => {
     render(
       <Provider store={store}>
@@ -16,15 +16,20 @@ describe("App without data", () => {
       </Provider>
     );
   });
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
   it("should renders heading", () => {
     expect(
-      screen.getByRole("heading", { name: "Women's Top" })
+      screen.getByRole("heading", {
+        name: "Please Select any Movie to fetch Details",
+      })
     ).toBeInTheDocument();
   });
 
   it("should renders loading when data is not loaded", () => {
     expect(
-      screen.getByRole("heading", { name: "loading..." })
+      screen.getByRole("heading", { name: "Fail to load data" })
     ).toBeInTheDocument();
   });
 });
@@ -32,6 +37,7 @@ describe("App without data", () => {
 describe("App with data", () => {
   let container, store;
   const handleFilter = jest.fn();
+  window.scrollTo = jest.fn();
   const props = {
     handleFilter,
   };
@@ -74,9 +80,48 @@ describe("App with data", () => {
     );
     container = wrapper.container;
   });
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
   it("should renders heading", () => {
     expect(
-      screen.getByRole("heading", { name: "Top Movies" })
+      screen.getByRole("heading", {
+        name: "Please Select any Movie to fetch Details",
+      })
     ).toBeInTheDocument();
+  });
+  it("should renders movie heading", () => {
+    expect(
+      screen.getByRole("heading", { name: "Select Any Movie" })
+    ).toBeInTheDocument();
+  });
+  it("should renders correct option in select dropdown", () => {
+    expect(screen.getByRole("combobox", { hidden: true })).toBeInTheDocument();
+    const options = screen.getAllByRole("option", { hidden: true });
+    expect(options[0].textContent).toBe("All");
+    expect(options[1].textContent).toBe("Adventure");
+    expect(options[2].textContent).toBe(" Drama");
+    expect(options[3].textContent).toBe(" Family");
+  });
+
+  it("should renders card", () => {
+    const card = container.getElementsByClassName("card-title h5");
+    expect(card[0].textContent).toBe("The Jungle Book");
+  });
+
+  it("should renders card", () => {
+    const card = container.getElementsByClassName("card-title h5");
+    expect(card[0].textContent).toBe("The Jungle Book");
+  });
+
+  it("should renders movie metadata and title on click of card", async () => {
+    const card = container.getElementsByClassName("card-title h5");
+    await act(async () => {
+      fireEvent.click(card[0]);
+    });
+    expect(screen.getByText("Year")).toBeInTheDocument();
+    expect(screen.getByText("2016")).toBeInTheDocument();
+    expect(screen.getByText("Rated")).toBeInTheDocument();
+    expect(screen.getByText("PG")).toBeInTheDocument();
   });
 });
